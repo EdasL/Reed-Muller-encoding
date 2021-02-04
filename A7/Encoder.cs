@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace A7
 {
-    class Encoder
+    public class Encoder
     {
         public string message;
         public int m;
@@ -20,24 +20,49 @@ namespace A7
             this.wordsCount = (int)Math.Pow(2, m);
         }
 
-        private void Encode()
+        public void Encode()
         {
-            BitArray generatingVariables = GetGeneratingVariables();
+            BitArray generatingVariables = GetGeneratingVariables(this.wordsCount - 1);
             int[,] bitviseIntValues = ConvertBitArrayToIntArray(generatingVariables);
 
             int vectorsCount = this.m + 1;
 
             List<int[]> genratedVectorsMatrix = new List<int[]>();
 
+            // Populate initial vectors
             for (int i = 0; i <= this.m; i ++)
             {
                 genratedVectorsMatrix.Add(this.CreateVectorIntArray(bitviseIntValues, i));
             }
+
+            // Populate product of vectors
+            int[] allVectorsIndexes = new int[this.r];
+
+            for (int i = 1; i <= this.m; i ++)
+            {
+                allVectorsIndexes[i] = i;
+            }
+
+            List<int[]> allPossibleSubestsOfIndexes = this.CreateSubsets(allVectorsIndexes);
+
+            foreach(var possibleSubset in allPossibleSubestsOfIndexes)
+            {
+                int[] multipliedVector = this.CreateVectorIntArray(bitviseIntValues, 0);
+
+                foreach (var index in possibleSubset)
+                {
+                    multipliedVector = this.MultiplyVectors(multipliedVector, genratedVectorsMatrix[index]);
+                }
+
+                genratedVectorsMatrix.Add(multipliedVector);
+            }
+
+
         }
 
-        private BitArray GetGeneratingVariables()
+        public BitArray GetGeneratingVariables(int maxDecimalvalue)
         {
-            int[] decimalValues = new int[this.wordsCount - 1];
+            int[] decimalValues = new int[maxDecimalvalue];
 
             for (int i = 1; i <= this.wordsCount; i ++)
             {
@@ -47,7 +72,7 @@ namespace A7
             return new BitArray(decimalValues);
         }
 
-        private int[,] ConvertBitArrayToIntArray(BitArray bitArray)
+        public int[,] ConvertBitArrayToIntArray(BitArray bitArray)
         {
             int[,] bitviseIntValues = new int[this.wordsCount - 1, this.m - 1];
 
@@ -66,7 +91,7 @@ namespace A7
             return bitviseIntValues;
         }
 
-        private int[] CreateVectorIntArray(int[,] generatingValues, int vectorIndex)
+        public int[] CreateVectorIntArray(int[,] generatingValues, int vectorIndex)
         {
             int[] vector = new int[this.wordsCount];
 
@@ -82,6 +107,42 @@ namespace A7
             }
 
             return vector;
+        }
+
+        public int[] MultiplyVectors(int[] vectorA, int[] vectorB)
+        {
+            int[] vector = new int[this.wordsCount];
+
+            for (int i = 0; i < this.wordsCount; i++)
+            {
+                vector[i] = vectorA[i] * vectorB[i];
+            }
+
+            return vector;
+        }
+
+        public List<int[]> CreateSubsets(int[] originalArray)
+        {
+            List<int[]> subsets = new List<int[]>();
+
+            for (int i = 0; i < originalArray.Length; i++)
+            {
+                int subsetCount = subsets.Count;
+                subsets.Add(new int[] { originalArray[i] });
+
+                for (int j = 0; j < subsetCount; j++)
+                {
+                    int[] newSubset = new int[subsets[j].Length + 1];
+                    subsets[j].CopyTo(newSubset, 0);
+                    newSubset[newSubset.Length - 1] = originalArray[i];
+                    subsets.Add(newSubset);
+                }
+            }
+
+            subsets.RemoveAll(subset => subset.Length == 1);
+            subsets.RemoveAll(subset => subset.Length > this.r);
+
+            return subsets;
         }
     }
 }
