@@ -10,6 +10,7 @@ namespace A7
     {
         public string message;
         public string encodedMessage;
+        public List<int> encodedMessageBits;
         public int m;
         public int r;
         public int wordsCount;
@@ -94,9 +95,8 @@ namespace A7
                 }
             }
 
-            List<int> encodedMessage = this.MultiplyMessageWithGeneratorMatrix(messageIntValues, genratedVectorsMatrix);
-
-            this.encodedMessage = string.Join("", encodedMessage.Select(x => x.ToString()).ToArray());
+            this.encodedMessageBits = this.MultiplyMessageWithGeneratorMatrix(messageIntValues, genratedVectorsMatrix);
+            this.encodedMessage = string.Join("", this.encodedMessageBits.Select(x => x.ToString()).ToArray());
         }
 
         public List<int> MultiplyMessageWithGeneratorMatrix(List<int[]> message, List<int[]> generatorMatrix)
