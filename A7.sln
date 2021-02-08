@@ -5,7 +5,11 @@ VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "A7", "A7\A7.csproj", "{50D95FF9-0BDA-4464-B9C2-927BE9DB67F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncoderTests", "UnitTestProject1\EncoderTests.csproj", "{EDE8266B-A411-4AE9-A135-1A234B9D158C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EncoderTests", "UnitTestProject1\EncoderTests.csproj", "{EDE8266B-A411-4AE9-A135-1A234B9D158C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixTests", "MatrixTests\MatrixTests.csproj", "{2F7B34E5-6BC0-41B7-809A-FA5067D32EC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DecoderTests", "DecoderTests\DecoderTests.csproj", "{02110375-C56B-4E0B-B082-0A127D394938}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{EDE8266B-A411-4AE9-A135-1A234B9D158C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDE8266B-A411-4AE9-A135-1A234B9D158C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDE8266B-A411-4AE9-A135-1A234B9D158C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7B34E5-6BC0-41B7-809A-FA5067D32EC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7B34E5-6BC0-41B7-809A-FA5067D32EC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7B34E5-6BC0-41B7-809A-FA5067D32EC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7B34E5-6BC0-41B7-809A-FA5067D32EC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02110375-C56B-4E0B-B082-0A127D394938}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02110375-C56B-4E0B-B082-0A127D394938}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02110375-C56B-4E0B-B082-0A127D394938}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02110375-C56B-4E0B-B082-0A127D394938}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
