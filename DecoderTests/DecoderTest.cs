@@ -9,10 +9,15 @@ namespace DecoderTests
         [TestMethod]
         public void TestDecode()
         {
-            //Decoder decoder1 = new Decoder("11101001", 3, 3);
-            //decoder1.Decode();
-            //string expectedResult1 = "11110001";
-            //Assert.AreEqual(expectedResult1, decoder1.decodedMessage);
+            Decoder decoder5 = new Decoder("00100010", 3, 2);
+            decoder5.Decode();
+            string expectedResult5 = "0001001";
+            Assert.AreEqual(expectedResult5, decoder5.decodedMessage);
+
+            Decoder decoder1 = new Decoder("11101001", 3, 3);
+            decoder1.Decode();
+            string expectedResult1 = "11110001";
+            Assert.AreEqual(expectedResult1, decoder1.decodedMessage);
 
             Decoder decoder2 = new Decoder("01101001", 3, 3);
             decoder2.Decode();

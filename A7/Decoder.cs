@@ -58,8 +58,15 @@ namespace A7
 
                     List<int[]> subsets =  matrix.CreateSubsets(this.GetVectorsIndexes(), true);
                     subsets.Reverse();
-                    subsets.Add(new int[] { 0 });
-                    subsets.RemoveAll(subset => subset.Length != tempR);
+
+                    int keptSubsetsLength = tempR;
+                    if (tempR == 0)
+                    {
+                        subsets.Add(new int[] { 0 });
+                        keptSubsetsLength = 1;
+                    }
+
+                    subsets.RemoveAll(subset => subset.Length != keptSubsetsLength);
 
                     subsets.ForEach(subset =>
                     {
@@ -102,9 +109,16 @@ namespace A7
                             {
                                 int sameValues = 0;
 
-                                for (int j = 0; j < allT[i].Length; j++)
+                                if (tempR == this.m)
                                 {
-                                    if (allL.Count != 0 && allT[i][j] == vector[allL[j] - 1]) sameValues++;
+                                    sameValues++;
+                                } else
+                                {
+                                    for (int j = 0; j < allT[i].Length; j++)
+                                    {
+
+                                        if (allT[i][j] == vector[allL[j] - 1]) sameValues++;
+                                    }
                                 }
 
                                 w.Add(sameValues == allT[i].Length ? 1 : 0);
@@ -145,6 +159,7 @@ namespace A7
                             decodedMessagesSum += bitSuggestion;
                         });
 
+                        Console.WriteLine("wc count/2: {0}", (double)wc.Count / 2);
                         decodedTempMessage.Add(decodedMessagesSum > ((double)wc.Count / 2) ? 1 : 0);
                     });
 
@@ -176,7 +191,7 @@ namespace A7
                         Console.WriteLine("Bit: {0}", bitValue);
 
                         Console.WriteLine("Vector:");
-                        foreach (int value in initialVector)
+                        foreach (int value in vector)
                         {
                             Console.Write(value);
                         }

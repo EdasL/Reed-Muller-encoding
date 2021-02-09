@@ -20,16 +20,37 @@ namespace A7
             InitializeComponent();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void binaryMessageEncodeButton_Click(object sender, EventArgs e)
         {
-            // Click on the link below to continue learning how to build a desktop app using WinForms!
-            System.Diagnostics.Process.Start("http://aka.ms/dotnet-get-started-desktop");
+            string  binaryMessage = binaryMessageInputText.Text;
+            int m = int.Parse(mText.Text);
+            int r = int.Parse(rText.Text);
 
+            Encoder encoder = new Encoder(binaryMessage, m, r);
+            encoder.Encode();
+
+            encodedBinaryMessage.Text = encoder.encodedMessage;
+
+            double mistakeChance;
+            double.TryParse(mistakeChanceText.Text, out mistakeChance);
+
+            Channel channel = new Channel(encoder.encodedMessageBits, mistakeChance);
+            channel.Send();
+
+            sentBinaryMessageText.Text = channel.outputMessage;
+            sentBinaryMessageMistakePositions.Text = string.Join(" ", channel.mistakePositions.Select(x => x.ToString()).ToArray());
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void binaryDecodeButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Thanks!");
+            string gotBinaryMessage = sentBinaryMessageText.Text;
+            int m = int.Parse(mText.Text);
+            int r = int.Parse(rText.Text);
+
+            Decoder decoder = new Decoder(gotBinaryMessage, m, r);
+            decoder.Decode();
+
+            decodedBinaryMessage.Text = decoder.decodedMessage;
         }
     }
 }

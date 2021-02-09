@@ -10,6 +10,7 @@ namespace A7
     {
         public List<int> message;
         public List<int> messageWithMistakes;
+        public List<int> mistakePositions;
         public string outputMessage;
         public double mistakeChance;
 
@@ -23,6 +24,7 @@ namespace A7
         {
             Random random = new Random();
             this.messageWithMistakes = new List<int>();
+            this.mistakePositions = new List<int>();
 
             for (int i = 0; i < this.message.Count; i++)
             {
@@ -31,6 +33,7 @@ namespace A7
 
                 if (randomNumber < this.mistakeChance) {
                     sentValue = this.message[i] == 1 ? 0 : 1;
+                    mistakePositions.Add(i + 1);
                 }
 
                 this.messageWithMistakes.Add(sentValue);
