@@ -54,6 +54,7 @@ namespace A7
 
 
                     Matrix matrix = new Matrix(this.m, tempR);
+                    matrix.CreateGeneratorMatrix();
 
                     List<int[]> subsets =  matrix.CreateSubsets(this.GetVectorsIndexes(), true);
                     subsets.Reverse();
@@ -77,14 +78,6 @@ namespace A7
                         Console.WriteLine("end of all L");
 
                         List<int[]> allT = matrix.GetGeneratingVariables((int)Math.Pow(2, this.m - tempR) - 1, this.m - tempR);
-
-                        if(allT.Count == 0)
-                        {
-                            decodedTempMessage.Add(0);
-                            tempR--;
-
-                            return;
-                        }
 
                         Console.WriteLine("all T:");
                         allT.ForEach(t =>
@@ -111,7 +104,7 @@ namespace A7
 
                                 for (int j = 0; j < allT[i].Length; j++)
                                 {
-                                    if (allT[i][j] == vector[allL[j] - 1]) sameValues++;
+                                    if (allL.Count != 0 && allT[i][j] == vector[allL[j] - 1]) sameValues++;
                                 }
 
                                 w.Add(sameValues == allT[i].Length ? 1 : 0);
@@ -152,24 +145,69 @@ namespace A7
                             decodedMessagesSum += bitSuggestion;
                         });
 
-                        decodedTempMessage.Add(decodedMessagesSum >= ((double)wc.Count / 2) ? 1 : 0);
+                        decodedTempMessage.Add(decodedMessagesSum > ((double)wc.Count / 2) ? 1 : 0);
                     });
 
-                    decodedTempMessage.ForEach(bitValue => {
-                        decodedMessage.Add(bitValue);
-                    });
+                    int wordsCount = (int)Math.Pow(2, this.m);
 
-
-                    for (int i = 0; i < decodedTempMessage.Count; i++)
+                    int[] initialVector = new int[wordsCount];
+                    for (int i = 0; i < wordsCount; i++)
                     {
-                        int bitValue = Math.Abs(messageInBits[(decodedMessage.Count - 1) - i] - decodedTempMessage[i]);
-                        messageInBits[(decodedMessage.Count - 1) - i] = bitValue;
+                        initialVector[i] = 0;
                     }
+
+
+                    int[] productOfVectors = new int[wordsCount];
+                    initialVector.CopyTo(productOfVectors, 0);
+
+                    int addedValues = 0;
+                    decodedTempMessage.ForEach(bitValue => {
+                        int[] vector = new int[wordsCount];
+
+                        if (bitValue != 1)
+                        {
+                            initialVector.CopyTo(vector, 0);
+                        }
+                        else
+                        {
+                            matrix.generatorMatrix[(matrix.generatorMatrix.Count - 1) - addedValues].CopyTo(vector, 0);
+                        }
+
+                        Console.WriteLine("Bit: {0}", bitValue);
+
+                        Console.WriteLine("Vector:");
+                        foreach (int value in initialVector)
+                        {
+                            Console.Write(value);
+                        }
+                        Console.WriteLine();
+
+                        for (int i = 0; i < wordsCount; i ++)
+                        {
+                            int result = productOfVectors[i] + vector[i];
+
+                            productOfVectors[i] = result % 2;
+                        }
+
+                        decodedMessage.Add(bitValue);
+                        addedValues++;
+                    });
+
+                    Console.WriteLine("Product of vectors:");
+                    for (int i = 0; i < wordsCount; i++)
+                    {
+                        Console.Write(productOfVectors[i]);
+                        int result = Math.Abs(messageInBits[i] - productOfVectors[i]);
+
+                        messageInBits[i] = result;
+                    }
+                    Console.WriteLine();
 
                     tempR--;
                 }
             }
 
+            decodedMessage.Reverse();
             this.decodedMessage = string.Join("", decodedMessage.Select(x => x.ToString()).ToArray());
         }
 

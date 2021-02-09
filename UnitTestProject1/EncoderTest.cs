@@ -17,14 +17,14 @@ namespace UnitTestProject1
             string expectedResult1 = "11101001";
             Assert.AreEqual(expectedResult1, encoder1.encodedMessage);
 
-            Encoder encoder2 = new Encoder("1111000", 3, 3);
+            Encoder encoder2 = new Encoder("11110000", 3, 3);
             encoder2.Encode();
             string expectedResult2 = "01101001";
             Assert.AreEqual(expectedResult2, encoder2.encodedMessage);
 
-            Encoder encoder3 = new Encoder("0100010", 3, 2);
+            Encoder encoder3 = new Encoder("01000100", 3, 2);
             encoder3.Encode();
-            string expectedResult3 = "01010000";
+            string expectedResult3 = "0101000000000000";
             Assert.AreEqual(expectedResult3, encoder3.encodedMessage);
         }
     }
