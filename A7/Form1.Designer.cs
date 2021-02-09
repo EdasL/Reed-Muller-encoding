@@ -317,6 +317,7 @@ namespace A7
             this.textEncodeButton.TabIndex = 19;
             this.textEncodeButton.Text = "Encode";
             this.textEncodeButton.UseVisualStyleBackColor = true;
+            this.textEncodeButton.Click += new System.EventHandler(this.textEncodeButton_Click);
             // 
             // encodedTextMessage
             // 
@@ -438,6 +439,7 @@ namespace A7
             this.textDecodeButton.TabIndex = 26;
             this.textDecodeButton.Text = "Decode";
             this.textDecodeButton.UseVisualStyleBackColor = true;
+            this.textDecodeButton.Click += new System.EventHandler(this.textDecodeButton_Click);
             // 
             // textMistakePositions
             // 
