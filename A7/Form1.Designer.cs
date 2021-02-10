@@ -70,12 +70,29 @@ namespace A7
             this.label15 = new System.Windows.Forms.Label();
             this.sentTextMessageText = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
+            this.inputImage = new System.Windows.Forms.PictureBox();
+            this.encodedImage = new System.Windows.Forms.PictureBox();
+            this.imageEncodeButton = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.sentImage = new System.Windows.Forms.PictureBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.decodedImage = new System.Windows.Forms.PictureBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.imageUploadButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.binaryInputTab.SuspendLayout();
             this.textInputTab.SuspendLayout();
+            this.imageInputTab.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.binaryOutputTab.SuspendLayout();
             this.textOutputTab.SuspendLayout();
+            this.imageOutputTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encodedImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sentImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.decodedImage)).BeginInit();
             this.SuspendLayout();
             // 
             // binaryMessageInputText
@@ -187,6 +204,12 @@ namespace A7
             // 
             // imageInputTab
             // 
+            this.imageInputTab.Controls.Add(this.imageUploadButton);
+            this.imageInputTab.Controls.Add(this.label18);
+            this.imageInputTab.Controls.Add(this.label17);
+            this.imageInputTab.Controls.Add(this.imageEncodeButton);
+            this.imageInputTab.Controls.Add(this.encodedImage);
+            this.imageInputTab.Controls.Add(this.inputImage);
             this.imageInputTab.Location = new System.Drawing.Point(4, 22);
             this.imageInputTab.Name = "imageInputTab";
             this.imageInputTab.Size = new System.Drawing.Size(295, 295);
@@ -241,9 +264,14 @@ namespace A7
             // 
             // imageOutputTab
             // 
+            this.imageOutputTab.Controls.Add(this.button1);
+            this.imageOutputTab.Controls.Add(this.label20);
+            this.imageOutputTab.Controls.Add(this.decodedImage);
+            this.imageOutputTab.Controls.Add(this.label19);
+            this.imageOutputTab.Controls.Add(this.sentImage);
             this.imageOutputTab.Location = new System.Drawing.Point(4, 22);
             this.imageOutputTab.Name = "imageOutputTab";
-            this.imageOutputTab.Size = new System.Drawing.Size(351, 224);
+            this.imageOutputTab.Size = new System.Drawing.Size(387, 295);
             this.imageOutputTab.TabIndex = 2;
             this.imageOutputTab.Text = "image";
             this.imageOutputTab.UseVisualStyleBackColor = true;
@@ -315,7 +343,7 @@ namespace A7
             this.textEncodeButton.Name = "textEncodeButton";
             this.textEncodeButton.Size = new System.Drawing.Size(157, 36);
             this.textEncodeButton.TabIndex = 19;
-            this.textEncodeButton.Text = "Encode";
+            this.textEncodeButton.Text = "Encode and Send";
             this.textEncodeButton.UseVisualStyleBackColor = true;
             this.textEncodeButton.Click += new System.EventHandler(this.textEncodeButton_Click);
             // 
@@ -475,6 +503,102 @@ namespace A7
             this.label16.TabIndex = 23;
             this.label16.Text = "Sent message:";
             // 
+            // inputImage
+            // 
+            this.inputImage.Location = new System.Drawing.Point(3, 13);
+            this.inputImage.Name = "inputImage";
+            this.inputImage.Size = new System.Drawing.Size(167, 105);
+            this.inputImage.TabIndex = 0;
+            this.inputImage.TabStop = false;
+            // 
+            // encodedImage
+            // 
+            this.encodedImage.Location = new System.Drawing.Point(116, 134);
+            this.encodedImage.Name = "encodedImage";
+            this.encodedImage.Size = new System.Drawing.Size(167, 105);
+            this.encodedImage.TabIndex = 1;
+            this.encodedImage.TabStop = false;
+            // 
+            // imageEncodeButton
+            // 
+            this.imageEncodeButton.Location = new System.Drawing.Point(56, 245);
+            this.imageEncodeButton.Name = "imageEncodeButton";
+            this.imageEncodeButton.Size = new System.Drawing.Size(157, 36);
+            this.imageEncodeButton.TabIndex = 20;
+            this.imageEncodeButton.Text = "Encode and Send";
+            this.imageEncodeButton.UseVisualStyleBackColor = true;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(3, 0);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(62, 13);
+            this.label17.TabIndex = 21;
+            this.label17.Text = "Input image";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(113, 121);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(81, 13);
+            this.label18.TabIndex = 22;
+            this.label18.Text = "Encoded image";
+            // 
+            // sentImage
+            // 
+            this.sentImage.Location = new System.Drawing.Point(17, 13);
+            this.sentImage.Name = "sentImage";
+            this.sentImage.Size = new System.Drawing.Size(167, 105);
+            this.sentImage.TabIndex = 1;
+            this.sentImage.TabStop = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(14, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(60, 13);
+            this.label19.TabIndex = 22;
+            this.label19.Text = "Sent image";
+            // 
+            // decodedImage
+            // 
+            this.decodedImage.Location = new System.Drawing.Point(202, 134);
+            this.decodedImage.Name = "decodedImage";
+            this.decodedImage.Size = new System.Drawing.Size(167, 105);
+            this.decodedImage.TabIndex = 23;
+            this.decodedImage.TabStop = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(199, 121);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(82, 13);
+            this.label20.TabIndex = 24;
+            this.label20.Text = "Decoded image";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(79, 245);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(249, 36);
+            this.button1.TabIndex = 27;
+            this.button1.Text = "Decode";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // imageUploadButton
+            // 
+            this.imageUploadButton.Location = new System.Drawing.Point(176, 55);
+            this.imageUploadButton.Name = "imageUploadButton";
+            this.imageUploadButton.Size = new System.Drawing.Size(100, 28);
+            this.imageUploadButton.TabIndex = 23;
+            this.imageUploadButton.Text = "Upload image";
+            this.imageUploadButton.UseVisualStyleBackColor = true;
+            this.imageUploadButton.Click += new System.EventHandler(this.imageUploadButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,11 +625,19 @@ namespace A7
             this.binaryInputTab.PerformLayout();
             this.textInputTab.ResumeLayout(false);
             this.textInputTab.PerformLayout();
+            this.imageInputTab.ResumeLayout(false);
+            this.imageInputTab.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.binaryOutputTab.ResumeLayout(false);
             this.binaryOutputTab.PerformLayout();
             this.textOutputTab.ResumeLayout(false);
             this.textOutputTab.PerformLayout();
+            this.imageOutputTab.ResumeLayout(false);
+            this.imageOutputTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.inputImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.encodedImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.sentImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.decodedImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -555,6 +687,17 @@ namespace A7
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox mistakeChanceText;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button imageEncodeButton;
+        private System.Windows.Forms.PictureBox encodedImage;
+        private System.Windows.Forms.PictureBox inputImage;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.PictureBox decodedImage;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.PictureBox sentImage;
+        private System.Windows.Forms.Button imageUploadButton;
     }
 }
 

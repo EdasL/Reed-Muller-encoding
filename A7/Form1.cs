@@ -43,19 +43,27 @@ namespace A7
 
         private void binaryDecodeButton_Click(object sender, EventArgs e)
         {
+            string initialMessage = binaryMessageInputText.Text;
             string gotBinaryMessage = sentBinaryMessageText.Text;
+
             int m = int.Parse(mText.Text);
             int r = int.Parse(rText.Text);
 
             Decoder decoder = new Decoder(gotBinaryMessage, m, r);
             decoder.Decode();
 
-            decodedBinaryMessage.Text = decoder.decodedMessage;
+            string decodedMessage = decoder.decodedMessage;
+            if (r != 0 && decodedMessage.Length != initialMessage.Length)
+            {
+                decodedMessage = decodedMessage.Remove(initialMessage.Length);
+            }
+
+            decodedBinaryMessage.Text = decodedMessage;
         }
 
         private void textEncodeButton_Click(object sender, EventArgs e)
         {
-            string textMessage = string.Join("", Encoding.UTF8.GetBytes(inputTextMessage.Text).Select(n => Convert.ToString(n, 2)));
+            string textMessage = string.Join("", Encoding.UTF8.GetBytes(inputTextMessage.Text).Select(n => Convert.ToString(n, 2).PadLeft(8, '0')));
 
             int m = int.Parse(mText.Text);
             int r = int.Parse(rText.Text);
@@ -77,20 +85,49 @@ namespace A7
 
         private void textDecodeButton_Click(object sender, EventArgs e)
         {
+            string initialMessage = string.Join("", Encoding.UTF8.GetBytes(inputTextMessage.Text).Select(n => Convert.ToString(n, 2).PadLeft(8, '0')));
             string gotTextMessage = sentTextMessageText.Text;
+
             int m = int.Parse(mText.Text);
             int r = int.Parse(rText.Text);
 
             Decoder decoder = new Decoder(gotTextMessage, m, r);
             decoder.Decode();
 
-            var bytesAsStrings =
-                decoder.decodedMessage.Select((c, i) => new { Char = c, Index = i })
-                     .GroupBy(x => x.Index / 8)
-                     .Select(g => new string(g.Select(x => x.Char).ToArray()));
-            byte[] bytes = bytesAsStrings.Select(s => Convert.ToByte(s, 2)).ToArray();
+            string decodedMessage = decoder.decodedMessage;
+            if(r != 0 && decodedMessage.Length != initialMessage.Length)
+            {
+                decodedMessage = decodedMessage.Remove(initialMessage.Length);
+            }
 
-            decodedTextMessage.Text = Encoding.UTF8.GetString(bytes);
+            decodedTextMessage.Text = Encoding.UTF8.GetString(GetBytesFromBinaryString(decodedMessage));
+        }
+
+        public Byte[] GetBytesFromBinaryString(String binary)
+        {
+            var list = new List<Byte>();
+
+            for (int i = 0; i < binary.Length; i += 8)
+            {
+                String t = binary.Substring(i, 8);
+
+                list.Add(Convert.ToByte(t, 2));
+            }
+
+            return list.ToArray();
+        }
+
+        private void imageUploadButton_Click(object sender, EventArgs e)
+        {
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            // image filters  
+            open.Filter = "Bitamp image|*.bmp";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+                // display image in picture box  
+                inputImage.Image = new Bitmap(open.FileName);
+            }
         }
     }
 }

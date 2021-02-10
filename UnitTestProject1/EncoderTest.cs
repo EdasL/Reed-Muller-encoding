@@ -26,6 +26,11 @@ namespace UnitTestProject1
             encoder3.Encode();
             string expectedResult3 = "0101000000000000";
             Assert.AreEqual(expectedResult3, encoder3.encodedMessage);
+
+            Encoder encoder4 = new Encoder("01000100", 2, 1);
+            encoder4.Encode();
+            string expectedResult4 = "110010100000";
+            Assert.AreEqual(expectedResult4, encoder4.encodedMessage);
         }
     }
 }

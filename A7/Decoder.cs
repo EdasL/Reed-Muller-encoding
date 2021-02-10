@@ -21,7 +21,6 @@ namespace A7
         public void Decode()
         {
             int[] allMessageInBits = this.message.ToCharArray().Select(x => (int)Char.GetNumericValue(x)).ToArray();
-            List<int> decodedMessage = new List<int>();
             Matrix initialMatrix = new Matrix(this.m, this.r);
             initialMatrix.CreateGeneratorMatrix();
 
@@ -31,12 +30,13 @@ namespace A7
             for (int z = 0; z < messageSubsetsCount; z++)
             {
                 int tempR = this.r;
+                List<int> decodedMessage = new List<int>();
 
                 int[] messageInBits = new int[initialMatrix.generatingVectors.Count];
 
                 for (int i = 0; i < initialMatrix.generatingVectors.Count; i ++)
                 {
-                    messageInBits[i] = allMessageInBits[i];
+                    messageInBits[i] = allMessageInBits[(initialMatrix.generatingVectors.Count * z) + i];
                 }
 
                 while (tempR >= 0)
@@ -220,10 +220,10 @@ namespace A7
 
                     tempR--;
                 }
-            }
 
-            decodedMessage.Reverse();
-            this.decodedMessage = string.Join("", decodedMessage.Select(x => x.ToString()).ToArray());
+                decodedMessage.Reverse();
+                this.decodedMessage += string.Join("", decodedMessage.Select(x => x.ToString()).ToArray());
+            }
         }
 
         public int[] GetVectorsIndexes()

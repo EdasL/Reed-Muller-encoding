@@ -30,9 +30,15 @@ namespace A7
             this.generatorMatrix = new List<int[]>();
 
             // Populate initial vectors
-            for (int i = 0; i <= this.m; i++)
+            if (this.r != 0) {
+                for (int i = 0; i <= this.m; i++)
+                {
+                    this.generatorMatrix.Add(this.CreateVectorIntArray(i));
+                }
+            }
+            else
             {
-                this.generatorMatrix.Add(this.CreateVectorIntArray(i));
+                this.generatorMatrix.Add(this.CreateVectorIntArray(0));
             }
 
             // Populate product of vectors

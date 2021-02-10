@@ -41,7 +41,7 @@ namespace A7
 
             if(message.Length < messageSubsetsCount * vectorsCount)
             {
-                for (int i = message.Length - 1; i < messageSubsetsCount * vectorsCount; i ++)
+                for (int i = message.Length; i < messageSubsetsCount * vectorsCount; i ++)
                 {
                     appendedBits[i] = 0;
                 }
@@ -55,7 +55,7 @@ namespace A7
 
                 for (int j = 0; j < vectorsCount; j ++)
                 {
-                    result[j] = appendedBits[i * vectorsCount + j];
+                    result[j] = appendedBits[(i * vectorsCount) + j];
                 }
 
                 appendedBitsList.Add(result);
