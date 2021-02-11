@@ -41,17 +41,7 @@ namespace A7
 
                 while (tempR >= 0)
                 {
-                    Console.WriteLine("Begin: {0}", tempR);
                     List<int> decodedTempMessage = new List<int>();
-
-                    Console.WriteLine("Message:");
-                    foreach (int value in messageInBits)
-                    {
-                        Console.Write(value);
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("end of Message");
-
 
                     Matrix matrix = new Matrix(this.m, tempR);
                     matrix.CreateGeneratorMatrix();
@@ -72,33 +62,15 @@ namespace A7
                     {
                         List<int> allL = new List<int>();
 
-                        Console.WriteLine("all L:");
                         foreach (int index in allVectorsIndexes)
                         {
                             if (!subset.Contains(index))
                             {
                                 allL.Add(index);
-                                Console.Write("{0} ,", index);
                             }
                         }
-                        Console.WriteLine();
-                        Console.WriteLine("end of all L");
 
                         List<int[]> allT = matrix.GetGeneratingVariables((int)Math.Pow(2, this.m - tempR) - 1, this.m - tempR);
-
-                        Console.WriteLine("all T:");
-                        allT.ForEach(t =>
-                        {
-                            foreach (int tValue in t)
-                            {
-                                Console.Write("{0} ,", tValue);
-                            }
-
-                            Console.WriteLine();
-                        });
-                        Console.WriteLine();
-                        Console.WriteLine("end of all T");
-
                         List<int[]> allW = new List<int[]>();
 
                         for (int i = 0; i < allT.Count; i++)
@@ -131,14 +103,6 @@ namespace A7
 
                         allW.ForEach(w =>
                         {
-                            Console.WriteLine("w:");
-                            foreach ( int value in w ){
-                                Console.Write(value);
-                            }
-                            Console.WriteLine();
-                            Console.WriteLine("end of w");
-
-
                             int[] multipliedVector = matrix.MultiplyVectors(w, messageInBits);
                             int result = 0;
 
@@ -146,8 +110,6 @@ namespace A7
                             {
                                 result += multipliedVector[i];
                             }
-
-                            Console.WriteLine("added bit: {0}", result % 2);
 
                             wc.Add(result % 2);
                         });
@@ -159,7 +121,6 @@ namespace A7
                             decodedMessagesSum += bitSuggestion;
                         });
 
-                        Console.WriteLine("wc count/2: {0}", (double)wc.Count / 2);
                         decodedTempMessage.Add(decodedMessagesSum > ((double)wc.Count / 2) ? 1 : 0);
                     });
 
@@ -188,15 +149,6 @@ namespace A7
                             matrix.generatorMatrix[(matrix.generatorMatrix.Count - 1) - addedValues].CopyTo(vector, 0);
                         }
 
-                        Console.WriteLine("Bit: {0}", bitValue);
-
-                        Console.WriteLine("Vector:");
-                        foreach (int value in vector)
-                        {
-                            Console.Write(value);
-                        }
-                        Console.WriteLine();
-
                         for (int i = 0; i < wordsCount; i ++)
                         {
                             int result = productOfVectors[i] + vector[i];
@@ -208,15 +160,12 @@ namespace A7
                         addedValues++;
                     });
 
-                    Console.WriteLine("Product of vectors:");
                     for (int i = 0; i < wordsCount; i++)
                     {
-                        Console.Write(productOfVectors[i]);
                         int result = Math.Abs(messageInBits[i] - productOfVectors[i]);
 
                         messageInBits[i] = result;
                     }
-                    Console.WriteLine();
 
                     tempR--;
                 }
